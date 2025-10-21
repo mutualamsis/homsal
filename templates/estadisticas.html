@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Estadísticas{% endblock %}
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">📊 Estadísticas del Día</h2>
+
+    <a href="{{ url_for('export_excel') }}" class="btn btn-success mb-3">Exportar a Excel</a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Paciente</th>
+                <th>Médico</th>
+                <th>Especialidad</th>
+                <th>Precio</th>
+                <th>Obra Social</th>
+                <th>Pagado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in turnos %}
+            <tr>
+                <td>{{ t.fecha.strftime('%d/%m/%Y %H:%M') }}</td>
+                <td>{{ t.paciente.apellido }}, {{ t.paciente.nombre }}</td>
+                <td>{{ t.medico.apellido }}, {{ t.medico.nombre }}</td>
+                <td>{{ t.especialidad }}</td>
+                <td>${{ '%.2f'|format(t.precio) }}</td>
+                <td>{{ t.obra_social.nombre if t.obra_social else 'Ninguna' }}</td>
+                <td>{% if t.pagado %}✅{% else %}❌{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="4">Total Recaudado</th>
+                <th colspan="3">${{ '%.2f'|format(total) }}</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+{% endblock %}

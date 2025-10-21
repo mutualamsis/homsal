@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Médicos{% endblock %}
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">👨‍⚕️ Médicos</h2>
+
+    <form method="POST" class="mb-4 border p-3 bg-light rounded">
+        {{ form.hidden_tag() }}
+        <div class="row">
+            <div class="col-md-4 mb-2">{{ form.nombre.label }} {{ form.nombre(class="form-control") }}</div>
+            <div class="col-md-4 mb-2">{{ form.apellido.label }} {{ form.apellido(class="form-control") }}</div>
+            <div class="col-md-4 mb-2">{{ form.especialidad.label }} {{ form.especialidad(class="form-control") }}</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar Médico</button>
+    </form>
+
+    <table class="table table-striped">
+        <thead><tr><th>Nombre</th><th>Apellido</th><th>Especialidad</th></tr></thead>
+        <tbody>
+            {% for m in medicos %}
+            <tr>
+                <td>{{ m.nombre }}</td>
+                <td>{{ m.apellido }}</td>
+                <td>{{ m.especialidad }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

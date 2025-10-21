@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Usuarios{% endblock %}
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">👥 Usuarios</h2>
+
+    <form method="POST" class="mb-4 border p-3 bg-light rounded">
+        {{ form.hidden_tag() }}
+        <div class="row">
+            <div class="col-md-3 mb-2">{{ form.username.label }} {{ form.username(class="form-control") }}</div>
+            <div class="col-md-3 mb-2">{{ form.password.label }} {{ form.password(class="form-control") }}</div>
+            <div class="col-md-3 mb-2">{{ form.full_name.label }} {{ form.full_name(class="form-control") }}</div>
+            <div class="col-md-3 mb-2">{{ form.role.label }} {{ form.role(class="form-select") }}</div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Agregar Usuario</button>
+    </form>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Nombre Completo</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in users %}
+            <tr>
+                <td>{{ u.username }}</td>
+                <td>{{ u.full_name }}</td>
+                <td>{{ roles[u.role_id] if u.role_id else 'Sin rol' }}</td>
+                <td>
+                    <a href="{{ url_for('editar_usuario', user_id=u.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                    <form action="{{ url_for('eliminar_usuario', user_id=u.id) }}" method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Eliminar usuario?')">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

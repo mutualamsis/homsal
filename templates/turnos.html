@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Turnos{% endblock %}
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">📅 Turnos</h2>
+
+    <form method="POST" class="mb-4 border p-3 bg-light rounded">
+        {{ form.hidden_tag() }}
+        <div class="row">
+            <div class="col-md-3 mb-2">{{ form.fecha.label }} {{ form.fecha(class="form-control") }}</div>
+            <div class="col-md-3 mb-2">{{ form.paciente.label }} {{ form.paciente(class="form-select") }}</div>
+            <div class="col-md-3 mb-2">{{ form.medico.label }} {{ form.medico(class="form-select") }}</div>
+            <div class="col-md-3 mb-2">{{ form.especialidad.label }} {{ form.especialidad(class="form-control") }}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mb-2">{{ form.precio.label }} {{ form.precio(class="form-control") }}</div>
+            <div class="col-md-3 mb-2">{{ form.usa_obra_social.label }} {{ form.usa_obra_social(class="form-check-input ms-2") }}</div>
+            <div class="col-md-3 mb-2">{{ form.obra_social.label }} {{ form.obra_social(class="form-select") }}</div>
+            <div class="col-md-3 mb-2">{{ form.pagado.label }} {{ form.pagado(class="form-check-input ms-2") }}</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar Turno</button>
+    </form>
+
+    <table class="table table-striped">
+        <thead>
+            <tr><th>Fecha</th><th>Paciente</th><th>Médico</th><th>Especialidad</th><th>Precio</th><th>Obra Social</th><th>Pagado</th></tr>
+        </thead>
+        <tbody>
+            {% for t in turnos %}
+            <tr>
+                <td>{{ t.fecha.strftime('%d/%m/%Y %H:%M') }}</td>
+                <td>{{ t.paciente.apellido }}, {{ t.paciente.nombre }}</td>
+                <td>{{ t.medico.apellido }}, {{ t.medico.nombre }}</td>
+                <td>{{ t.especialidad }}</td>
+                <td>${{ '%.2f'|format(t.precio) }}</td>
+                <td>{{ t.obra_social.nombre if t.obra_social else 'Ninguna' }}</td>
+                <td>{% if t.pagado %}✅{% else %}❌{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

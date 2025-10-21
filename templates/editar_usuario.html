@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Editar Usuario{% endblock %}
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">✏️ Editar Usuario</h2>
+
+    <form method="POST" class="border p-3 bg-light rounded">
+        {{ form.hidden_tag() }}
+        <div class="row">
+            <div class="col-md-3 mb-2">{{ form.username.label }} {{ form.username(class="form-control") }}</div>
+            <div class="col-md-3 mb-2">{{ form.password.label }} {{ form.password(class="form-control") }}</div>
+            <div class="col-md-3 mb-2">{{ form.full_name.label }} {{ form.full_name(class="form-control") }}</div>
+            <div class="col-md-3 mb-2">{{ form.role.label }} {{ form.role(class="form-select") }}</div>
+        </div>
+        <button type="submit" class="btn btn-success mt-2">Actualizar Usuario</button>
+        <a href="{{ url_for('usuarios') }}" class="btn btn-secondary mt-2">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Pacientes{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">🧑 Pacientes</h2>
+
+    <!-- Formulario de creación de paciente -->
+    <form method="POST" class="mb-4 border p-3 bg-light rounded">
+        {{ form.hidden_tag() }}
+        <div class="row">
+            <div class="col-md-2 mb-2">{{ form.nombre.label }} {{ form.nombre(class="form-control") }}</div>
+            <div class="col-md-2 mb-2">{{ form.apellido.label }} {{ form.apellido(class="form-control") }}</div>
+            <div class="col-md-2 mb-2">{{ form.dni.label }} {{ form.dni(class="form-control") }}</div>
+            <div class="col-md-2 mb-2">{{ form.telefono.label }} {{ form.telefono(class="form-control") }}</div>
+            <div class="col-md-2 mb-2">{{ form.direccion.label }} {{ form.direccion(class="form-control") }}</div>
+            <div class="col-md-2 mb-2">{{ form.obra_social.label }} {{ form.obra_social(class="form-select") }}</div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Agregar Paciente</button>
+    </form>
+
+    <!-- Tabla de pacientes -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>DNI</th>
+                <th>Teléfono</th>
+                <th>Dirección</th>
+                <th>Obra Social</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in pacientes %}
+            <tr>
+                <td>{{ p.nombre }}</td>
+                <td>{{ p.apellido }}</td>
+                <td>{{ p.dni }}</td>
+                <td>{{ p.telefono or '-' }}</td>
+                <td>{{ p.direccion or '-' }}</td>
+                <td>{{ p.obra_social.nombre if p.obra_social else 'Ninguna' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

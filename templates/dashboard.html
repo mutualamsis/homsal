@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">🏥 Dashboard</h2>
+
+    <div class="row">
+        {% if current_user.has_permission('turnos') %}
+        <div class="col-md-4 mb-4">
+            <a href="{{ url_for('turnos') }}" class="card text-decoration-none text-dark shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">📅 Turnos</h5>
+                    <p class="card-text">Administrar turnos de pacientes</p>
+                </div>
+            </a>
+        </div>
+        {% endif %}
+
+        {% if current_user.has_permission('usuarios') %}
+        <div class="col-md-4 mb-4">
+            <a href="{{ url_for('usuarios') }}" class="card text-decoration-none text-dark shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">👥 Usuarios</h5>
+                    <p class="card-text">Gestión de cuentas y permisos</p>
+                </div>
+            </a>
+        </div>
+        {% endif %}
+
+        {% if current_user.has_permission('medicos') %}
+        <div class="col-md-4 mb-4">
+            <a href="{{ url_for('medicos') }}" class="card text-decoration-none text-dark shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">🩺 Médicos</h5>
+                    <p class="card-text">Administrar médicos y especialidades</p>
+                </div>
+            </a>
+        </div>
+        {% endif %}
+
+        {% if current_user.has_permission('pacientes') %}
+        <div class="col-md-4 mb-4">
+            <a href="{{ url_for('pacientes') }}" class="card text-decoration-none text-dark shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">🧑 Pacientes</h5>
+                    <p class="card-text">Administrar pacientes y datos</p>
+                </div>
+            </a>
+        </div>
+        {% endif %}
+
+        {% if current_user.has_permission('obras_sociales') %}
+        <div class="col-md-4 mb-4">
+            <a href="{{ url_for('obras') }}" class="card text-decoration-none text-dark shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">🏥 Obras Sociales</h5>
+                    <p class="card-text">Administrar obras sociales</p>
+                </div>
+            </a>
+        </div>
+        {% endif %}
+
+        {% if current_user.has_permission('estadisticas') %}
+        <div class="col-md-4 mb-4">
+            <a href="{{ url_for('estadisticas') }}" class="card text-decoration-none text-dark shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">📊 Estadísticas</h5>
+                    <p class="card-text">Ver reportes y exportar Excel</p>
+                </div>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
